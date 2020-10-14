@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.app-main-container {
+  background-color: #24245d;
+  display: flex;
+  height: 465px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 90%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.weather-app {
+  border: 3px solid white;
+  border-radius: 19px;
+  margin: 30px;
+  padding: 10px 24px;
+  width: 417px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.five-day-forcast-container {
+  border: 1px solid white;
+  margin-top: 32px;
+  padding: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.five-day-forcast-container p {
+  margin-top: 0;
+}
+
+.five-day-forcast-flex-parent {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 14px;
+}
+
+.five-day-forcast-flex-item {
+  margin-bottom: 12px;
+  padding-left: 16px;
+  width: 20%;
+}
+
+button {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.weather-app-widget-title {
+  font-size: 22px;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.weather-app-widget-title img {
+ float: right;
+}
+
+.weather-app-widget-data {
+  display: flex;
+}
+
+.celzius-sign {
+  font-size: 45px;
+}
+
+.column p {
+  margin: 0;
+}
+
+.left-column p {
+  font-size: 88px;
+}
+
+.right-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-left: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.right-column p {
+  font-size: 12px;
+  padding: 2px;
 }
