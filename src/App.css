@@ -1,17 +1,23 @@
 .app-main-container {
+  align-items: center;
   background-color: #24245d;
   display: flex;
-  height: 465px;
-  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
   margin: 0 auto;
   width: 90%;
 }
 
+input {
+  height: 29px;
+  width: 160px;
+}
+
 .weather-app {
-  border: 3px solid white;
   border-radius: 19px;
-  margin: 30px;
   padding: 10px 24px;
+  margin-bottom: 20px;
   width: 417px;
 }
 
@@ -38,8 +44,9 @@
 }
 
 button {
-  float: right;
+  float: left;
   margin-bottom: 20px;
+  margin-right: 9px;
 }
 
 .weather-app-widget-title {

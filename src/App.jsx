@@ -1,44 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 import Layout from './components/Layout';
-import City from './components/City';
-import FiveDayForcast from './components/FiveDayForcast';
-import { getWeather, getForecast } from './adapters/openWeatherMap.adapter';
+import Cities from './components/Cities';
+
+import { fetchWeatherData } from './adapters/openWeatherMap.adapter';
 
 import './App.css';
 
 function App() {
-    const [weatherData, setWeatherData] = useState(null);
-    const [fiveDayForecast, setFiveDayForecast] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [citiesForecast, setCitiesForecast] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        getForecast().then(data => {
-            const newArr = data.list.filter((value, index) => {
-                return index % 8 === 0;
-            });
-            console.log(newArr);
-            setFiveDayForecast(newArr);
+    const numOfCities = citiesForecast.length;
+
+    const prepWeatherData = (data) => {
+        const fiveDayWeather = data[1].list.filter((value, index) => {
+            return index % 8 === 0;
         });
-    }, []);
+        const cityData = {
+            city: data[0].name,
+            show: true,
+            currentWeather: data[0],
+            fiveDayWeather,
+        };
+        setCitiesForecast((prevState) => {
+            return [...prevState, cityData];
+        });
+    };
 
-    useEffect(() => {
-        setTimeout(() => {
-            getWeather().then(data => {
-                const { wind, weather, main, name } = data;
-                const forecastData = { wind, weather, main, name };
-                setWeatherData(forecastData);
+    const getCityForecast = (e) => {
+        if (e.key === 'Enter') {
+            setIsLoading(true);
+
+            fetchWeatherData(e.target.value).then(data => {
+                if (data) {
+                    setIsLoading(false);
+                    prepWeatherData(data);
+                }
             });
-        }, 1000);
-    }, []);
+            e.target.value = '';
+        }
+    };
 
     return (
         <Layout>
-            {weatherData === null ? 'Loading...' : (
-                <div className="weather-app">
-                    {weatherData && <City weatherData={weatherData} />}
-                    <button type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? '-' : '+'}</button>
-                    {isOpen && <FiveDayForcast fiveDayForecast={fiveDayForecast} />}
-                </div>
+            <input
+                type="text"
+                placeholder="type city and press enter..."
+                onKeyDown={(e) => getCityForecast(e)}
+            />
+            <h1>Weather Forecast App</h1>
+            {isLoading ? 'Loading...' : numOfCities > 0 && (
+                <Cities citiesForecast={citiesForecast} />
             )}
         </Layout>
     );

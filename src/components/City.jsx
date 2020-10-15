@@ -4,8 +4,8 @@ import { cityComponentLabels } from '../constants/label.constants';
 
 import { convertToCelsius } from '../utils/convertToCelsius';
 
-const City = ({ weatherData }) => {
-    const { name, weather, main, wind } = weatherData;
+const City = ({ currentWeather }) => {
+    const { name, weather, main, wind } = currentWeather;
     return (
         <div className="weather-app-widget">
             <h1 className="weather-app-widget-title">
@@ -32,7 +32,7 @@ const City = ({ weatherData }) => {
 };
 
 City.propTypes = {
-    weatherData: PropTypes.object,
+    currentWeather: PropTypes.object,
 };
 
 export default City;
