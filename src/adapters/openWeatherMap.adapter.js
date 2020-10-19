@@ -3,10 +3,10 @@ import config from '../config/openWeatherMap';
 
 const { weatherHost, forecastHost, key } = config;
 
-export const fetchWeatherData = (c) => {
+export const fetchWeatherData = city => {
     const apiUrls = [
-        `${weatherHost}?q=${c}&appid=${key}`,
-        `${forecastHost}?q=${c}&appid=${key}`,
+        `${weatherHost}?q=${city}&appid=${key}`,
+        `${forecastHost}?q=${city}&appid=${key}`,
     ];
 
     const allRequests = apiUrls.map(url =>

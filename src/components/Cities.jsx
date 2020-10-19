@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import City from './City';
-import FiveDayForcast from './FiveDayForcast';
 
 const Cities = ({ citiesForecast }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [fiveDayCity, setFiveDayCity] = useState(null);
-
-    const toggleFiveDayForecast = (e) => {
-        setIsOpen(!isOpen);
-        setFiveDayCity(Number(e.target.dataset.id));
-    };
-
     return (
         citiesForecast.map((city, i) => {
+            const { currentWeather, fiveDayWeather, visible } = city;
+
             return (
-                <div
-                    key={i}
-                    className="weather-app"
-                    style={citiesForecast && { border: '3px solid white' }}
-                >
-                    <City currentWeather={city.currentWeather} />
-                    press for next 5 day forecast
-                    <button type="button" data-id={i} onClick={(e) => toggleFiveDayForecast(e)}>{isOpen && i === fiveDayCity ? '-' : '+'}</button>
-                    {isOpen && i === fiveDayCity && <FiveDayForcast fiveDayForecast={city.fiveDayWeather} />}
-                </div>
+                visible && (
+                    <div
+                        key={i}
+                        className="weather-app"
+                        style={citiesForecast && { border: '3px solid white' }}
+                    >
+                        <City
+                            currentWeather={currentWeather}
+                            index={i}
+                            fiveDayWeather={fiveDayWeather}
+                        />
+                    </div>
+                )
             );
         })
     );

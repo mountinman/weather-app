@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { cityComponentLabels } from '../constants/label.constants';
+
+import FiveDayForcast from './FiveDayForcast';
 
 import { convertToCelsius } from '../utils/convertToCelsius';
 
-const City = ({ currentWeather }) => {
+import { cityComponentLabels } from '../constants/label.constants';
+
+const City = ({ currentWeather, index, fiveDayWeather }) => {
     const { name, weather, main, wind } = currentWeather;
+    const [isFiveDayForecastOpen, setFiveDayForecastState] = useState(false);
+    const [currentOpen, setCurrentOpen] = useState(null);
+
+    const toggleFiveDayForecast = (e) => {
+        setFiveDayForecastState(!isFiveDayForecastOpen);
+        setCurrentOpen(Number(e.target.dataset.id));
+        if (currentOpen !== Number(e.target.dataset.id)) {
+            setFiveDayForecastState(true);
+        }
+    };
+
     return (
         <div className="weather-app-widget">
             <h1 className="weather-app-widget-title">
@@ -27,12 +41,23 @@ const City = ({ currentWeather }) => {
                     <p>{cityComponentLabels.wind} <span>{wind.speed}</span>Km/h, <span>{wind.deg}</span></p>
                 </div>
             </div>
+            {cityComponentLabels.CTA}
+            <button
+                type="button"
+                data-id={index}
+                onClick={(e) => toggleFiveDayForecast(e)}
+            >
+                {isFiveDayForecastOpen && index === currentOpen ? '-' : '+'}
+            </button>
+            {isFiveDayForecastOpen && index === currentOpen && <FiveDayForcast fiveDayForecast={fiveDayWeather} />}
         </div>
     );
 };
 
 City.propTypes = {
     currentWeather: PropTypes.object,
+    index: PropTypes.number,
+    fiveDayWeather: PropTypes.array,
 };
 
 export default City;
