@@ -6,7 +6,7 @@ export const cityComponentLabels = {
     CTA: 'Press for next 5 days forecast',
 };
 
-export const fiveDayForecatsComponentLabels = {
+export const fiveDayForecastsComponentLabels = {
     title: '5 Day Forecast',
 };
 

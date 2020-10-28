@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CitiesList = ({ name, setCityToRemove, isChecked }) => {
+const CitiesList = ({ name, isChecked, removeCity }) => {
     const removeCityFromView = () => {
-        setCityToRemove(name);
+        removeCity(name);
     };
 
     return (
@@ -21,7 +21,7 @@ const CitiesList = ({ name, setCityToRemove, isChecked }) => {
 
 CitiesList.propTypes = {
     name: PropTypes.string,
-    setCityToRemove: PropTypes.func,
+    removeCity: PropTypes.func,
     isChecked: PropTypes.bool,
 };
 

@@ -6,9 +6,9 @@ import dayjs from 'dayjs';
 import { convertToCelsius } from '../utils/convertToCelsius';
 import { getDays } from '../utils/getDays';
 
-import { fiveDayForecatsComponentLabels } from '../constants/label.constants';
+import { fiveDayForecastsComponentLabels } from '../constants/label.constants';
 
-const FiveDayForcast = ({ fiveDayForecast }) => {
+const FiveDayForecast = ({ fiveDayForecast }) => {
     const [daysOfWeek, setDaysOfWeek] = useState([]);
 
     useEffect(() => {
@@ -16,12 +16,12 @@ const FiveDayForcast = ({ fiveDayForecast }) => {
     }, []);
 
     return (
-        <div className="five-day-forcast-container">
-            <p>{fiveDayForecatsComponentLabels.title}</p>
-            <div className="five-day-forcast-flex-parent">
+        <div className="five-day-forecast-container">
+            <p>{fiveDayForecastsComponentLabels.title}</p>
+            <div className="five-day-forecast-flex-parent">
                 {fiveDayForecast && fiveDayForecast.map((day, i) => {
                     return (
-                        <div className="five-day-forcast-flex-item" key={i}>
+                        <div className="five-day-forecast-flex-item" key={i}>
                             <p>{dayjs(daysOfWeek[i]).format('ddd')}</p>
                             <p>{convertToCelsius(day.main.temp)}<sup>o</sup></p>
                             <small>{day.weather[0].description}</small>
@@ -33,8 +33,8 @@ const FiveDayForcast = ({ fiveDayForecast }) => {
     );
 };
 
-FiveDayForcast.propTypes = {
+FiveDayForecast.propTypes = {
     fiveDayForecast: PropTypes.array,
 };
 
-export default FiveDayForcast;
+export default FiveDayForecast;

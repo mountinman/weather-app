@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import Layout from './components/Layout';
 import Cities from './components/Cities';
 import CitiesList from './components/CitiesList';
@@ -13,22 +13,20 @@ import './App.css';
 function App() {
     const [citiesForecast, setCitiesForecast] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [cityToRemoveName, setCityToRemove] = useState('');
     const [isError, setError] = useState(false);
-
+    const [searchTerm, setSearchTerm] = useState();
     const numOfCities = citiesForecast.length;
 
-    useEffect(() => {
-        const filterCitiesForecast = citiesForecast.map(city => {
-            const temp = { ...city };
-            if (temp.currentWeather.name === cityToRemoveName) {
-                temp.visible = !city.visible;
+    const removeCity = (cityToRemove) => {
+        const filterCitiesForecast = citiesForecast.map(city => (
+            {
+                ...city,
+                visible: city.currentWeather.name === cityToRemove ? !city.visible : city.visible,
             }
-            return temp;
-        });
+        ));
+
         setCitiesForecast(filterCitiesForecast);
-        setCityToRemove('');
-    }, [cityToRemoveName]);
+    };
 
     const prepWeatherData = (data) => {
         const fiveDayWeather = data[1].list.filter((value, index) => {
@@ -48,32 +46,44 @@ function App() {
     const getCityForecast = (e) => {
         if (e.key === 'Enter') {
             if (isError) setError(false);
-
             setIsLoading(true);
             fetchWeatherData(e.target.value).then(data => {
                 if (data) {
                     setIsLoading(false);
                     prepWeatherData(data);
                 }
-            })
-                .catch(err => {
-                    console.error('ERROR!', err);
-                    setTimeout(() => {
-                        setError(true);
-                        setIsLoading(false);
-                    }, 3000);
-                });
+            }).catch(err => {
+                console.error('ERROR!', err);
+                setTimeout(() => {
+                    setError(true);
+                    setIsLoading(false);
+                }, 3000);
+            });
             e.target.value = '';
         }
     };
 
+    const handleAutoComplete = async (e) => {
+        if (e.target.value === '') {
+            return null;
+        }
+        await axios(`http://localhost:5000/cities/${e.target.value}`).then(data => {
+            setSearchTerm(data.request.response);
+        }).catch(err => console.log('ERROR:', err));
+    };
+
+    useEffect(() => {
+        console.log(searchTerm);
+    }, [searchTerm]);
+
     return (
         <Layout>
             <input
-                className="searh-city-input"
+                className="search-city-input"
                 type="text"
                 placeholder="type city and press enter..."
                 onKeyDown={(e) => getCityForecast(e)}
+                onChange={(e) => handleAutoComplete(e)}
             />
             <h1>{appComponentLabels.title}</h1>
             {isError && <h2>There was an error, please try again</h2>}
@@ -82,7 +92,7 @@ function App() {
                     <CitiesList
                         name={city.currentWeather.name}
                         isChecked={city.visible}
-                        setCityToRemove={setCityToRemove}
+                        removeCity={removeCity}
                     />
                 ))}
             </div>

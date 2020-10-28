@@ -9,7 +9,7 @@
     width: 90%;
 }
 
-.searh-city-input {
+.search-city-input {
     height: 29px;
     width: 160px;
 }
@@ -26,23 +26,23 @@
     width: 417px;
 }
 
-.five-day-forcast-container {
+.five-day-forecast-container {
     border: 1px solid white;
     margin-top: 32px;
     padding: 10px;
 }
 
-.five-day-forcast-container p {
+.five-day-forecast-container p {
     margin-top: 0;
 }
 
-.five-day-forcast-flex-parent {
+.five-day-forecast-flex-parent {
     display: flex;
     justify-content: space-around;
     padding: 0 14px;
 }
 
-.five-day-forcast-flex-item {
+.five-day-forecast-flex-item {
     margin-bottom: 12px;
     padding-left: 16px;
     width: 20%;
@@ -68,7 +68,7 @@ button {
     display: flex;
 }
 
-.celzius-sign {
+.celsius-sign {
     font-size: 45px;
 }
 

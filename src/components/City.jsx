@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import FiveDayForcast from './FiveDayForcast';
+import FiveDayForecast from './FiveDayForecast';
 
 import { convertToCelsius } from '../utils/convertToCelsius';
 
@@ -10,12 +10,12 @@ import { cityComponentLabels } from '../constants/label.constants';
 const City = ({ currentWeather, index, fiveDayWeather }) => {
     const { name, weather, main, wind } = currentWeather;
     const [isFiveDayForecastOpen, setFiveDayForecastState] = useState(false);
-    const [currentOpen, setCurrentOpen] = useState(null);
+    const [currentFiveDayForecastOpen, setCurrentOpen] = useState(null);
 
     const toggleFiveDayForecast = (e) => {
         setFiveDayForecastState(!isFiveDayForecastOpen);
         setCurrentOpen(Number(e.target.dataset.id));
-        if (currentOpen !== Number(e.target.dataset.id)) {
+        if (currentFiveDayForecastOpen !== Number(e.target.dataset.id)) {
             setFiveDayForecastState(true);
         }
     };
@@ -33,7 +33,7 @@ const City = ({ currentWeather, index, fiveDayWeather }) => {
                 <div className="column left-column">
                     <p>{convertToCelsius(main.temp)}</p>
                 </div>
-                <sup className="celzius-sign">o</sup>
+                <sup className="celsius-sign">o</sup>
                 <div className="column right-column">
                     <p>{cityComponentLabels.feel} {convertToCelsius(main.feels_like)} &#8451;</p>
                     <p>{cityComponentLabels.pressure} {main.pressure} hPa</p>
@@ -47,9 +47,9 @@ const City = ({ currentWeather, index, fiveDayWeather }) => {
                 data-id={index}
                 onClick={(e) => toggleFiveDayForecast(e)}
             >
-                {isFiveDayForecastOpen && index === currentOpen ? '-' : '+'}
+                {isFiveDayForecastOpen && index === currentFiveDayForecastOpen ? '-' : '+'}
             </button>
-            {isFiveDayForecastOpen && index === currentOpen && <FiveDayForcast fiveDayForecast={fiveDayWeather} />}
+            {isFiveDayForecastOpen && index === currentFiveDayForecastOpen && <FiveDayForecast fiveDayForecast={fiveDayWeather} />}
         </div>
     );
 };
