@@ -15,6 +15,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setError] = useState(false);
     const [searchTerm, setSearchTerm] = useState();
+
     const numOfCities = citiesForecast.length;
 
     const removeCity = (cityToRemove) => {
@@ -67,9 +68,11 @@ function App() {
         if (e.target.value === '') {
             return null;
         }
-        await axios(`http://localhost:5000/cities/${e.target.value}`).then(data => {
-            setSearchTerm(data.request.response);
-        }).catch(err => console.log('ERROR:', err));
+        await axios(`http://localhost:5000/cities/${e.target.value}`)
+            .then(data => {
+                setSearchTerm(data.request.response);
+            })
+            .catch(err => console.log('ERROR:', err));
     };
 
     useEffect(() => {
