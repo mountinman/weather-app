@@ -19,6 +19,10 @@
     margin-bottom: 10px;
 }
 
+.error-msg {
+    color: red;
+}
+
 .weather-app {
     border-radius: 19px;
     padding: 10px 24px;

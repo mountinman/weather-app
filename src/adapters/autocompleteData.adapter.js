@@ -8,7 +8,7 @@ export const getAutocompleteData = async (searchTerm) => {
         .then(data => {
             return JSON.parse(data.request.response);
         })
-        .catch(err => console.log('ERROR!!!:', err));
+        .catch(err => console.log('ERROR:', err));
 
     return res;
 };

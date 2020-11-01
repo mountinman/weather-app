@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SearchDropdown from './SearchDropdown';
 
-import { getAutocompleteData } from '../adapters/autocomplete.adapter';
+import { getAutocompleteData } from '../adapters/autocompleteData.adapter';
 
 const SearchInput = ({ getCityForecast }) => {
     const [autocompleteData, setAutocompleteData] = useState();

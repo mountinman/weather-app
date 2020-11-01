@@ -57,9 +57,12 @@ function App() {
                 setTimeout(() => {
                     setError(true);
                     setIsLoading(false);
-                }, 3000);
+                }, 2000);
             });
             e.target.value = '';
+            setTimeout(() => {
+                setError(false);
+            }, 10000);
         }
     };
 
@@ -67,7 +70,7 @@ function App() {
         <Layout>
             <SearchInput getCityForecast={getCityForecast} />
             <h1>{appComponentLabels.title}</h1>
-            {isError && <h2>{appComponentLabels.errorMsg}</h2>}
+            {isError && <h2 className="error-msg">{appComponentLabels.errorMsg}</h2>}
             <div className="city-list-container">
                 {citiesForecast.map((city, i) => (
                     <CitiesList
