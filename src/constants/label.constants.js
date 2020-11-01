@@ -12,4 +12,5 @@ export const fiveDayForecastsComponentLabels = {
 
 export const appComponentLabels = {
     title: 'Weather Forecast App',
+    errorMsg: 'There was an error, please try again',
 };
