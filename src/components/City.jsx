@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import FiveDayForecast from './FiveDayForecast';
@@ -7,17 +7,22 @@ import { convertToCelsius } from '../utils/convertToCelsius';
 
 import { cityComponentLabels } from '../constants/label.constants';
 
-const City = ({ currentWeather, index, fiveDayWeather }) => {
+const City = ({
+    currentWeather,
+    index,
+    fiveDayWeather,
+    setCurrentOpenIndex,
+    currentOpenFiveDayForecastIndex,
+    setFiveDayForecastState,
+    isFiveDayForecastOpen,
+}) => {
     const { name, weather, main, wind } = currentWeather;
-    const [isFiveDayForecastOpen, setFiveDayForecastState] = useState(false);
-    const [currentFiveDayForecastOpen, setCurrentOpen] = useState(null);
 
     const toggleFiveDayForecast = (e) => {
-        setFiveDayForecastState(!isFiveDayForecastOpen);
-        setCurrentOpen(Number(e.target.dataset.id));
-        if (currentFiveDayForecastOpen !== Number(e.target.dataset.id)) {
-            setFiveDayForecastState(true);
-        }
+        setFiveDayForecastState(true);
+        if (currentOpenFiveDayForecastIndex === Number(e.target.dataset.id)
+        && isFiveDayForecastOpen) setFiveDayForecastState(false);
+        setCurrentOpenIndex(Number(e.target.dataset.id));
     };
 
     return (
@@ -47,14 +52,18 @@ const City = ({ currentWeather, index, fiveDayWeather }) => {
                 data-id={index}
                 onClick={(e) => toggleFiveDayForecast(e)}
             >
-                {isFiveDayForecastOpen && index === currentFiveDayForecastOpen ? '-' : '+'}
+                {isFiveDayForecastOpen && index === currentOpenFiveDayForecastIndex ? '-' : '+'}
             </button>
-            {isFiveDayForecastOpen && index === currentFiveDayForecastOpen && <FiveDayForecast fiveDayForecast={fiveDayWeather} />}
+            {isFiveDayForecastOpen && index === currentOpenFiveDayForecastIndex && <FiveDayForecast fiveDayForecast={fiveDayWeather} />}
         </div>
     );
 };
 
 City.propTypes = {
+    isFiveDayForecastOpen: PropTypes.bool,
+    setFiveDayForecastState: PropTypes.func,
+    currentOpenFiveDayForecastIndex: PropTypes.number,
+    setCurrentOpenIndex: PropTypes.func,
     currentWeather: PropTypes.object,
     index: PropTypes.number,
     fiveDayWeather: PropTypes.array,

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import City from './City';
 
 const Cities = ({ citiesForecast }) => {
+    const [currentOpenFiveDayForecastIndex, setCurrentOpenIndex] = useState(null);
+    const [isFiveDayForecastOpen, setFiveDayForecastState] = useState(false);
+
     return (
         citiesForecast.map((city, i) => {
             const { currentWeather, fiveDayWeather, visible } = city;
@@ -16,6 +19,10 @@ const Cities = ({ citiesForecast }) => {
                         style={citiesForecast && { border: '3px solid white' }}
                     >
                         <City
+                            setFiveDayForecastState={setFiveDayForecastState}
+                            isFiveDayForecastOpen={isFiveDayForecastOpen}
+                            currentOpenFiveDayForecastIndex={currentOpenFiveDayForecastIndex}
+                            setCurrentOpenIndex={setCurrentOpenIndex}
                             currentWeather={currentWeather}
                             index={i}
                             fiveDayWeather={fiveDayWeather}
