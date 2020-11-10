@@ -9,7 +9,7 @@ import { cityComponentLabels } from '../constants/label.constants';
 
 const City = ({
     currentWeather,
-    index,
+    cityIndex,
     fiveDayWeather,
     setCurrentOpenIndex,
     currentOpenFiveDayForecastIndex,
@@ -20,9 +20,9 @@ const City = ({
 
     const toggleFiveDayForecast = (e) => {
         setFiveDayForecastState(true);
+        setCurrentOpenIndex(Number(e.target.dataset.id));
         if (currentOpenFiveDayForecastIndex === Number(e.target.dataset.id)
         && isFiveDayForecastOpen) setFiveDayForecastState(false);
-        setCurrentOpenIndex(Number(e.target.dataset.id));
     };
 
     return (
@@ -49,12 +49,12 @@ const City = ({
             {cityComponentLabels.CTA}
             <button
                 type="button"
-                data-id={index}
+                data-idw={cityIndex}
                 onClick={(e) => toggleFiveDayForecast(e)}
             >
-                {isFiveDayForecastOpen && index === currentOpenFiveDayForecastIndex ? '-' : '+'}
+                {isFiveDayForecastOpen && cityIndex === currentOpenFiveDayForecastIndex ? '-' : '+'}
             </button>
-            {isFiveDayForecastOpen && index === currentOpenFiveDayForecastIndex && <FiveDayForecast fiveDayForecast={fiveDayWeather} />}
+            {isFiveDayForecastOpen && cityIndex === currentOpenFiveDayForecastIndex && <FiveDayForecast fiveDayForecast={fiveDayWeather} />}
         </div>
     );
 };
@@ -65,7 +65,7 @@ City.propTypes = {
     currentOpenFiveDayForecastIndex: PropTypes.number,
     setCurrentOpenIndex: PropTypes.func,
     currentWeather: PropTypes.object,
-    index: PropTypes.number,
+    cityIndex: PropTypes.number,
     fiveDayWeather: PropTypes.array,
 };
 

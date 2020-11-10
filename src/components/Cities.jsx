@@ -24,7 +24,7 @@ const Cities = ({ citiesForecast }) => {
                             currentOpenFiveDayForecastIndex={currentOpenFiveDayForecastIndex}
                             setCurrentOpenIndex={setCurrentOpenIndex}
                             currentWeather={currentWeather}
-                            index={i}
+                            cityIndex={i}
                             fiveDayWeather={fiveDayWeather}
                         />
                     </div>
