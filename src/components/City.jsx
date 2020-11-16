@@ -20,9 +20,9 @@ const City = ({
 
     const toggleFiveDayForecast = (e) => {
         setFiveDayForecastState(true);
-        setCurrentOpenIndex(Number(e.target.dataset.id));
         if (currentOpenFiveDayForecastIndex === Number(e.target.dataset.id)
         && isFiveDayForecastOpen) setFiveDayForecastState(false);
+        setCurrentOpenIndex(Number(e.target.dataset.id));
     };
 
     return (
@@ -49,7 +49,7 @@ const City = ({
             {cityComponentLabels.CTA}
             <button
                 type="button"
-                data-idw={cityIndex}
+                data-id={cityIndex}
                 onClick={(e) => toggleFiveDayForecast(e)}
             >
                 {isFiveDayForecastOpen && cityIndex === currentOpenFiveDayForecastIndex ? '-' : '+'}
