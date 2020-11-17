@@ -6,11 +6,19 @@ import SearchDropdown from './SearchDropdown';
 import { getAutocompleteData } from '../adapters/autocompleteData.adapter';
 
 const SearchInput = ({ getCityForecast }) => {
+    const [searchTerm, setSearchTerm] = useState();
     const [autocompleteData, setAutocompleteData] = useState();
 
-    const handleAutoComplete = async (e) => {
+    const handleInputChange = async (e) => {
+        setSearchTerm(e.target.value);
         const res = await getAutocompleteData(e.target.value);
         setAutocompleteData(res);
+    };
+
+    const handleSearch = () => {
+        getCityForecast(searchTerm);
+        setAutocompleteData('');
+        setSearchTerm('');
     };
 
     return (
@@ -18,10 +26,11 @@ const SearchInput = ({ getCityForecast }) => {
             <input
                 className="search-city-input"
                 type="text"
-                placeholder="type city and press enter..."
-                onKeyDown={(e) => getCityForecast(e)}
-                onChange={(e) => handleAutoComplete(e)}
+                value={searchTerm}
+                placeholder="type city and press search..."
+                onChange={handleInputChange}
             />
+            <button type="button" onClick={handleSearch}>Search</button>
             <SearchDropdown autocompleteData={autocompleteData} />
         </>
 

@@ -43,27 +43,24 @@ function App() {
         });
     };
 
-    const getCityForecast = (e) => {
-        if (e.key === 'Enter') {
-            if (isError) setError(false);
-            setIsLoading(true);
-            fetchWeatherData(e.target.value).then(data => {
-                if (data) {
-                    setIsLoading(false);
-                    prepWeatherData(data);
-                }
-            }).catch(err => {
-                console.error('ERROR!', err);
-                setTimeout(() => {
-                    setError(true);
-                    setIsLoading(false);
-                }, 2000);
-            });
-            e.target.value = '';
+    const getCityForecast = (searchTerm) => {
+        if (isError) setError(false);
+        setIsLoading(true);
+        fetchWeatherData(searchTerm).then(data => {
+            if (data) {
+                setIsLoading(false);
+                prepWeatherData(data);
+            }
+        }).catch(err => {
+            console.error('ERROR!', err);
             setTimeout(() => {
-                setError(false);
-            }, 10000);
-        }
+                setError(true);
+                setIsLoading(false);
+            }, 2000);
+        });
+        setTimeout(() => {
+            setError(false);
+        }, 10000);
     };
 
     return (
