@@ -7,7 +7,7 @@ import { getAutocompleteData } from '../adapters/autocompleteData.adapter';
 
 const SearchInput = ({ getCityForecast }) => {
     const [searchTerm, setSearchTerm] = useState();
-    const [autocompleteData, setAutocompleteData] = useState();
+    const [autocompleteCitiesData, setAutocompleteData] = useState();
 
     const handleInputChange = async (e) => {
         setSearchTerm(e.target.value);
@@ -21,8 +21,12 @@ const SearchInput = ({ getCityForecast }) => {
         setSearchTerm('');
     };
 
+    const setAutocompleteCitiesData = (city) => {
+        setSearchTerm(city);
+    };
+
     return (
-        <>
+        <div className="search-city">
             <input
                 className="search-city-input"
                 type="text"
@@ -30,9 +34,12 @@ const SearchInput = ({ getCityForecast }) => {
                 placeholder="type city and press search..."
                 onChange={handleInputChange}
             />
+            <SearchDropdown
+                setAutocompleteCitiesData={setAutocompleteCitiesData}
+                autocompleteCitiesData={autocompleteCitiesData}
+            />
             <button type="button" onClick={handleSearch}>Search</button>
-            <SearchDropdown autocompleteData={autocompleteData} />
-        </>
+        </div>
 
     );
 };

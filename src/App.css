@@ -53,9 +53,7 @@
 }
 
 button {
-    float: left;
-    margin-bottom: 20px;
-    margin-right: 9px;
+    margin: 40px;
 }
 
 .weather-app-widget-title {
@@ -94,4 +92,12 @@ button {
 .right-column p {
     font-size: 12px;
     padding: 2px;
+}
+
+.city {
+    margin: 0;
+    padding: 10px 2px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
 }

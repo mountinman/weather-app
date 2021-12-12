@@ -1,16 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchDropdown = ({ autocompleteData }) => {
+const SearchDropdown = ({ autocompleteCitiesData, setAutocompleteCitiesData }) => {
+    const handleAutocompleteData = (city) => {
+        setAutocompleteCitiesData(city);
+    };
+
     return (
         <div className="weather-app-cities-list">
-            {autocompleteData && autocompleteData.map((s, i) => <p key={i}>{s}</p>)}
+            {autocompleteCitiesData && autocompleteCitiesData.map((city, i) => {
+                return (
+                    <p
+                        onClick={(e) => handleAutocompleteData(e.target.innerHTML)}
+                        className="city"
+                        key={i}
+                    >
+                        {city}
+                    </p>
+                );
+            })}
         </div>
     );
 };
 
 SearchDropdown.propTypes = {
-    autocompleteData: PropTypes.array,
+    autocompleteCitiesData: PropTypes.array,
+    setAutocompleteCitiesData: PropTypes.func,
 };
 
 export default SearchDropdown;

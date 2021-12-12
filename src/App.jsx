@@ -10,7 +10,7 @@ import { fetchWeatherData } from './adapters/openWeatherMap.adapter';
 
 import './App.css';
 
-function App() {
+const App = () => {
     const [citiesForecast, setCitiesForecast] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setError] = useState(false);
@@ -83,6 +83,6 @@ function App() {
             )}
         </Layout>
     );
-}
+};
 
 export default App;
