@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const SearchDropdown = ({ autocompleteCitiesData, setAutocompleteCitiesData }) => {
+    const [cities, setCities] = useState(null);
+
+    useEffect(() => {
+        setCities(autocompleteCitiesData);
+    }, [autocompleteCitiesData]);
+
     const handleAutocompleteData = (city) => {
         setAutocompleteCitiesData(city);
+        setCities(null);
     };
 
     return (
         <div className="weather-app-cities-list">
-            {autocompleteCitiesData && autocompleteCitiesData.map((city, i) => {
+            {cities && cities.map((city, i) => {
                 return (
                     <p
                         onClick={(e) => handleAutocompleteData(e.target.innerHTML)}
